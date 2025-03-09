@@ -10,6 +10,8 @@
          <a href="admins.php">admins</a>
          <a href="messages.php">messages</a>
          <a href="register.php">register</a>
+         <a href="total_complete.php">Complete</a>
+         <a href="total_cancel.php">Cancelled</a>
          <a href="../components/admin_logout.php" onclick="return confirm('logout from this website?');">logout</a>
       </nav>
 

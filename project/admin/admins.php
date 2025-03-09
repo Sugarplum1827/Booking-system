@@ -1,6 +1,9 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-include '.../components/connect.php';
+include __DIR__ . '/../components/connect.php';
 
 if(isset($_COOKIE['admin_id'])){
    $admin_id = $_COOKIE['admin_id'];
@@ -64,10 +67,13 @@ if(isset($_POST['delete'])){
    </div>
 
    <?php
-      $select_admins = $conn->prepare("SELECT * FROM `admins`");
+      $select_admins = $conn->prepare("SELECT * FROM `admins` WHERE top = 0 ");
       $select_admins->execute();
       if($select_admins->rowCount() > 0){
          while($fetch_admins = $select_admins->fetch(PDO::FETCH_ASSOC)){
+            if ($fetch_admins['top'] == 1) {
+               continue;
+            }
    ?>
    <div class="box" <?php if( $fetch_admins['name'] == 'admin'){ echo 'style="display:none;"'; } ?>>
       <p>name : <span><?= $fetch_admins['name']; ?></span></p>
