@@ -15,18 +15,18 @@ if(isset($_COOKIE['user_id'])){
 
 if(isset($_POST['cancel'])){
 
-   $booking_id = $_POST['booking_id'];
-   $booking_id = strip_tags($booking_id);
+   $cancel_id = $_POST['cancel_id'];
+   $cancel_id = strip_tags($cancel_id);
 
-   $verify_booking = $conn->prepare("SELECT * FROM `bookings` WHERE booking_id = ?");
-   $verify_booking->execute([$booking_id]);
+   $verify_cancel = $conn->prepare("SELECT * FROM `bookings` WHERE booking_id = ? AND complete = 0");
+   $verify_cancel->execute([$cancel_id]);
 
-   if($verify_booking->rowCount() > 0){
-      $delete_booking = $conn->prepare("DELETE FROM `bookings` WHERE booking_id = ?");
-      $delete_booking->execute([$booking_id]);
-      $success_msg[] = 'booking cancelled successfully!';
+   if($verify_cancel->rowCount() > 0){
+      $cancel_bookings = $conn->prepare("UPDATE `bookings` SET complete = 2 WHERE booking_id = ?");
+      $cancel_bookings->execute([$cancel_id]);
+      $success_msg[] = 'Booking Cancelled!';
    }else{
-      $warning_msg[] = 'booking cancelled already!';
+      $warning_msg[] = 'Booking Cancellend already!';
    }
    
 }

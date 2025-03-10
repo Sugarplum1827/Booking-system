@@ -11,7 +11,27 @@ if(isset($_COOKIE['admin_id'])){
    $admin_id = '';
    header('location:login.php');
 }
+
+if(isset($_POST['delete'])){
+
+    $booking_id = $_POST['delete_id'];
+    $booking_id = strip_tags($booking_id);
+ 
+    $verify_booking = $conn->prepare("SELECT * FROM `bookings` WHERE booking_id = ?");
+    $verify_booking->execute([$booking_id]);
+ 
+    if($verify_booking->rowCount() > 0){
+       $delete_booking = $conn->prepare("DELETE FROM `bookings` WHERE booking_id = ?");
+       $delete_booking->execute([$booking_id]);
+       $success_msg[] = 'Record Deletion successful!';
+    }else{
+       $warning_msg[] = 'Record Deleted already!';
+    }
+    
+ }
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +79,11 @@ if(isset($_COOKIE['admin_id'])){
       <p>Check-in: <span><?= $fetch_bookings['check_in']; ?></span></p>
       <p>Service: <span><?= $fetch_bookings['service']; ?></span></p>
       <p>Description: <span><?= $fetch_bookings['description']; ?></span></p>
-      <p>CANCELLED</p>
+     <p>CANCELLED</p>
+     <form action="" method="POST">
+         <input type="hidden" name="delete_id" value="<?= $fetch_bookings['booking_id']; ?>">
+         <input type="submit" value="Delete Booking" onclick="return confirm('Delete this Record?');" name="delete" class="btn">
+    </form> 
    </div>
    <?php
          }
