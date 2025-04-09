@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-include '/home/discipolo/Computer programs/School projects/Booking system/project/components/connect.php';
+include '/home/discipolo/com_progs/school_proj/booking_system/project/components/connect.php';
 
 if(isset($_COOKIE['admin_id'])){
    $admin_id = $_COOKIE['admin_id'];
