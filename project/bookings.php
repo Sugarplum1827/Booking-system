@@ -65,7 +65,7 @@ if(isset($_POST['cancel'])){
    <?php
       $select_bookings = $conn->prepare("SELECT * FROM `bookings` WHERE user_id = ?");
       $select_bookings->execute([$user_id]);
-      if($select_bookings->rowCount() > 0){
+      if($select_bookings->rowCount() < 0){
          while($fetch_booking = $select_bookings->fetch(PDO::FETCH_ASSOC)){
    ?>
    <div class="box">
@@ -77,7 +77,7 @@ if(isset($_POST['cancel'])){
       <p>description : <span><?= $fetch_booking['description']; ?></span></p>
       <p>booking id : <span><?= $fetch_booking['booking_id']; ?></span></p>
       <form action="" method="POST">
-         <input type="hidden" name="booking_id" value="<?= $fetch_booking['booking_id']; ?>">
+         <input type="hidden" name="cancel_id" value="<?= $fetch_booking['booking_id']; ?>">
          <input type="submit" value="cancel booking" name="cancel" class="btn" onclick="return confirm('cancel this booking?');">
       </form>
    </div>

@@ -35,9 +35,10 @@ if(isset($_POST['check'])){
 
 }
 
-    if (!isset($_SESSION['user_id'])) {
-        $warning_msg[] = 'Please log in to book a service.';
-    } elseif (isset($_POST['book'])) {
+   // if (!isset($_SESSION['user_id'])) {
+        //$warning_msg[] = 'Please log in to book a service.';
+   // } else
+    if (isset($_POST['book'])) {
 
    $booking_id = create_unique_id();
    $name = htmlspecialchars($_POST['name'], ENT_QUOTES, 'UTF-8');
