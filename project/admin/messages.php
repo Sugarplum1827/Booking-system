@@ -2,24 +2,24 @@
 include '../components/connect.php';
 
 if(isset($_COOKIE['admin_id'])){
-   $admin_id = (int) $_COOKIE['admin_id']; // Ensure it's an integer
+   $admin_id = $_COOKIE['admin_id']; 
 }else{
    header('location: login.php');
    exit(); // Stop further execution
 }
 
 if(isset($_POST['delete'])){
-   $delete_id = (int) $_POST['delete_id']; // Ensure only integer values
+   $delete_id = $_POST['delete_id']; 
 
-   $verify_delete = $conn->prepare("SELECT id FROM `messages` WHERE id = ?");
+   $verify_delete = $conn->prepare("SELECT * FROM `messages` WHERE id = ?");
    $verify_delete->execute([$delete_id]);
 
    if($verify_delete->rowCount() > 0){
       $delete_bookings = $conn->prepare("DELETE FROM `messages` WHERE id = ? LIMIT 1");
       $delete_bookings->execute([$delete_id]);
-      echo "<script>alert('Message deleted successfully!');</script>";
+      $success_msg[] = 'Message deleted successfully!';
    }else{
-      echo "<script>alert('Message already deleted or does not exist!');</script>";
+      $warning_msg[] = 'Message already deleted or does not exist!';
    }
 }
 ?>
