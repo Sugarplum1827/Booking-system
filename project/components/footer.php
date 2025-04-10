@@ -29,6 +29,6 @@
 
    </div>
 
-   <div class="credit">&copy; Copyright @ 2025 by JS NovaWeb Studio | all rights reseved!</div>
+   <div class="credit">&copy; Copyright @ 2025 by JS NovaWeb Studio | All Rights Reserved!</div>
 
 </section>
