@@ -1,6 +1,6 @@
 <?php
 
-include '.../components/connect.php';
+include __DIR__ . '/../components/connect.php';
 
 if(isset($_COOKIE['admin_id'])){
    $admin_id = $_COOKIE['admin_id'];
@@ -55,7 +55,13 @@ if(isset($_COOKIE['admin_id'])){
       <?php
          $select_bookings = $conn->prepare("SELECT * FROM `bookings`");
          $select_bookings->execute();
-         $count_bookings = $select_bookings->rowCount();
+          $bookings = $select_bookings->fetchAll(PDO::FETCH_ASSOC);
+
+      foreach ($bookings as $fetch_bookings) {
+         if ($fetch_bookings['verified'] == 0) {
+               continue; // Skip rendering this booking
+           }
+         }
       ?>
       <h3><?= $count_bookings; ?></h3>
       <p>total bookings</p>

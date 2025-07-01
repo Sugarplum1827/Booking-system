@@ -2,8 +2,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+include '/home/maelstrom/Booking-system/project/components/connect.php';
 
-include '/home/discipolo/com_progs/school_proj/booking_system/project/components/connect.php';
 
 if(isset($_COOKIE['user_id'])){
    $user_id = $_COOKIE['user_id'];
@@ -19,7 +19,7 @@ if(isset($_POST['check'])){
 
    $total_service = 0;
 
-   $check_bookings = $conn->prepare("SELECT * FROM `bookings` WHERE check_in = ?");
+   $check_bookings = $conn->prepare("SELECT * FROM bookings WHERE check_in = ?");
    $check_bookings->execute([$check_in]);
 
    while($fetch_bookings = $check_bookings->fetch(PDO::FETCH_ASSOC)){
@@ -35,9 +35,6 @@ if(isset($_POST['check'])){
 
 }
 
-   // if (!isset($_SESSION['user_id'])) {
-        //$warning_msg[] = 'Please log in to book a service.';
-   // } else
     if (isset($_POST['book'])) {
 
    $booking_id = create_unique_id();
@@ -51,7 +48,7 @@ if(isset($_POST['check'])){
 
    $total_service = 0;
 
-   $check_bookings = $conn->prepare("SELECT * FROM `bookings` WHERE check_in = ?");
+   $check_bookings = $conn->prepare("SELECT * FROM bookings WHERE check_in = ?");
    $check_bookings->execute([$check_in]);
 
    while($fetch_bookings = $check_bookings->fetch(PDO::FETCH_ASSOC)){
@@ -62,13 +59,13 @@ if(isset($_POST['check'])){
       $warning_msg[] = 'Sevice are Full';
    }else{
 
-      $verify_bookings = $conn->prepare("SELECT * FROM `bookings` WHERE user_id = ? AND name = ? AND email = ? AND number = ? AND service = ? AND check_in = ? AND description = ?");
+      $verify_bookings = $conn->prepare("SELECT * FROM bookings WHERE user_id = ? AND name = ? AND email = ? AND number = ? AND service = ? AND check_in = ? AND description = ?");
       $verify_bookings->execute([$user_id, $name, $email, $number, $service, $check_in, $description]);
 
       if($verify_bookings->rowCount() > 0){
          $warning_msg[] = 'It is booked already!';
       }else{
-         $book_room = $conn->prepare("INSERT INTO `bookings`(booking_id, user_id, name, email, number, service, check_in, description) VALUES(?,?,?,?,?,?,?,?)");
+         $book_room = $conn->prepare("INSERT INTO bookings(booking_id, user_id, name, email, number, service, check_in, description) VALUES(?,?,?,?,?,?,?,?)");
          $book_room->execute([$booking_id, $user_id, $name, $email, $number, $service, $check_in, $description]);
          $success_msg[] = 'Booked successfully!';
       }
@@ -86,13 +83,13 @@ if(isset($_POST['send'])){
    $message = htmlspecialchars($_POST['message'], ENT_QUOTES, 'UTF-8');
    
 
-   $verify_message = $conn->prepare("SELECT * FROM `messages` WHERE name = ? AND email = ? AND number = ? AND message = ?");
+   $verify_message = $conn->prepare("SELECT * FROM messages WHERE name = ? AND email = ? AND number = ? AND message = ?");
    $verify_message->execute([$name, $email, $number, $message]);
 
    if($verify_message->rowCount() > 0){
       $warning_msg[] = 'message sent already!';
    }else{
-      $insert_message = $conn->prepare("INSERT INTO `messages`(id, name, email, number, message) VALUES(?,?,?,?,?)");
+      $insert_message = $conn->prepare("INSERT INTO messages(id, name, email, number, message) VALUES(?,?,?,?,?)");
       $insert_message->execute([$id, $name, $email, $number, $message]);
       $success_msg[] = 'message send successfully!';
    }

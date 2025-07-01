@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 
-include __DIR__ . '/components/connect.php';
+include __DIR__ . '/../components/connect.php';
 
 
 if(isset($_COOKIE['user_id'])){
@@ -18,7 +18,7 @@ if(isset($_POST['cancel'])){
    $cancel_id = $_POST['cancel_id'];
    $cancel_id = strip_tags($cancel_id);
 
-   $verify_cancel = $conn->prepare("SELECT * FROM `bookings` WHERE booking_id = ? AND complete = 0");
+   $verify_cancel = $conn->prepare("SELECT * FROM `bookings` WHERE booking_id = ? AND complete = 0 AND verified = 1");
    $verify_cancel->execute([$cancel_id]);
 
    if($verify_cancel->rowCount() > 0){

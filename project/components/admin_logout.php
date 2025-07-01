@@ -1,6 +1,6 @@
 <?php
 
-include '/home/discipolo/com_progs/school_proj/booking_system/project/components/connect.php';
+include __DIR__ . '/../components/connect.php';
 
 setcookie('admin_id', '', time() - 1, '/');
 

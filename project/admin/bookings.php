@@ -88,10 +88,13 @@ if (isset($_POST['complete'])) {
          while($fetch_bookings = $select_bookings->fetch(PDO::FETCH_ASSOC)){
 
             // Hide completed bookings
-            if ($fetch_bookings['complete'] == 1) {
+            if ($fetch_bookings['complete'] == 1 && $fetch_bookings['verified'] = 1) {
                 continue; // Skip rendering this booking
             }
-            if ($fetch_bookings['complete'] == 2) {
+            if ($fetch_bookings['complete'] == 2 && $fetch_bookings['verified'] == 1) {
+               continue; // Skip rendering this booking
+           }
+           if ($fetch_bookings['verified'] == 0) {
                continue; // Skip rendering this booking
            }
    ?>

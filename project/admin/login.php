@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-include '/home/discipolo/com_progs/school_proj/booking_system/project/components/connect.php';
+include __DIR__ . '/../components/connect.php';
 
 if(isset($_POST['submit'])){
 
@@ -15,15 +15,6 @@ if(isset($_POST['submit'])){
    $select_admins->execute([$name, $pass]);
    $row = $select_admins->fetch(PDO::FETCH_ASSOC);
 
-   //$select_user = $conn->prepare("SELECT * FROM `users` WHERE username = ? AND password = ? LIMIT 1");
-   //$select_user->execute([$name, $pass]);
-   //$row = $select_admins->fetch(PDO::FETCH_ASSOC);
-
-   //if($select_user->rowCount() > 0){
-
-   //   setcookie('user_id', $row['id'], time() + 60*60*24*30, '/');
-  //    header('location: UserBoard.php');
-   //}
    if($select_admins->rowCount() > 0){
       setcookie('admin_id', $row['id'], time() + 60*60*24*30, '/');
       header('location:dashboard.php');
@@ -58,7 +49,6 @@ if(isset($_POST['submit'])){
 
    <form action="" method="POST">
       <h3>welcome back!</h3>
-      <p>default name = <span>admin</span> & password = <span>111</span></p>
       <input type="text" name="name" placeholder="enter username" maxlength="20" class="box" required oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="password" name="pass" placeholder="enter password" maxlength="20" class="box" required oninput="this.value = this.value.replace(/\s/g, '')">
       <input type="submit" value="login now" name="submit" class="btn">

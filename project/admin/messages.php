@@ -1,5 +1,5 @@
 <?php
-include '../components/connect.php';
+include __DIR__ . '/../components/connect.php';
 
 if(isset($_COOKIE['admin_id'])){
    $admin_id = $_COOKIE['admin_id']; 

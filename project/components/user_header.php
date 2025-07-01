@@ -15,7 +15,6 @@
       <a href="index.php#gallery">Gallery</a>
       <a href="index.php#contact">Contact</a>
       <a href="index.php#reviews">Reviews</a>
-      <a href="bookings.php";>My Booking</a>
    </nav>
 
 </section>
