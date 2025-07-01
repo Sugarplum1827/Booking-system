@@ -43,23 +43,45 @@ INSERT INTO `admins` (`id`, `name`, `password`, `top`) VALUES
 
 CREATE TABLE `bookings` (
   `user_id` varchar(20) NOT NULL,
-  `booking_id` varchar(20) NOT NULL,
+  `booking_id` varchar(64) NOT NULL,
   `name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `number` varchar(10) NOT NULL,
+  `number` varchar(20) NOT NULL,
   `service` int(1) NOT NULL,
-  `check_in` varchar(10) NOT NULL,
+  `check_in` DATETIME NOT NULL,
   `description` varchar(1000) NOT NULL,
   `complete` INT(1) NOT NULL DEFAULT 0,
-  `verified` INT(1) NOT NULL DEFAULT 0
+  `verified` INT(1) NOT NULL DEFAULT 0,
+    `price` DECIMAL(10,2) NOT NULL AFTER `service`,
+  `cancellation_reason` TEXT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id VARCHAR(50) NOT NULL UNIQUE,
+    full_name VARCHAR(100) NOT NULL,
+    gmail VARCHAR(100) NOT NULL UNIQUE,
+    phone_number VARCHAR(20) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    verified TINYINT(1) DEFAULT 1,
+    revoke_reason TEXT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `messages`
 --
-
 CREATE TABLE `messages` (
   `id` varchar(20) NOT NULL,
   `name` varchar(50) NOT NULL,
